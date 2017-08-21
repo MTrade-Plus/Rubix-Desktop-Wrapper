@@ -371,6 +371,10 @@ function postMenuClickToRubix(item, focusedWindow) {
 // End Menu Related
 // ****************************************************************************
 
+function postMessageToRubix(msg) {
+	mainWindow.executeJavaScript("updateWrapperInfo('" + msg + "');");
+}
+
 function createWindow() {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
@@ -400,6 +404,15 @@ function createWindow() {
 
 		// mainWindow.maximise();
 		mainWindow.show();
+
+		// Pass the version information to Rubix
+		let platform = 'windows';
+		if (process.platform !== 'darwin') {
+			platform = 'macos'
+		}
+
+		msg = "{\"os\":\"" + platform + "\",\"wrapper_type\":\"desktop_wrapper\",\"wrapperVersion\":\"" + `${version}` + "\"}";
+		postMessageToRubix(msg);
 	})
 }
 
