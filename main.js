@@ -133,7 +133,7 @@ let template = [{
 		label: 'Top Stocks',
 		// accelerator: 'CmdOrCtrl+T',
 		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
+			postMenuClickToRubix(item, focusedWindow);
 		}
 	}]
 }, {
@@ -365,14 +365,15 @@ function showToBeImplementedMessage(focusedWindow) {
 }
 
 function postMenuClickToRubix(item, focusedWindow) {
-	
+	postMessageToRubix("{channel: 'Controll', message: 'Message sent from electron'}");
 }
 // ****************************************************************************
 // End Menu Related
 // ****************************************************************************
 
 function postMessageToRubix(msg) {
-	mainWindow.executeJavaScript("updateWrapperInfo('" + msg + "');");
+	msg = '[' + msg + ']';
+	mainWindow.webContents.executeJavaScript("window.postMessage(" + msg + ", '*')");	
 }
 
 function createWindow() {
@@ -381,7 +382,8 @@ function createWindow() {
 		width: 1800,
 		height: 1600,
 		show: false,
-
+		minWidth: 1024,
+		minHeight: 768
 	})
 
 	mainWindow.loadURL(`https://rubix.mubashertrade.com/rubix-global`);
@@ -411,8 +413,9 @@ function createWindow() {
 			platform = 'macos'
 		}
 
-		msg = "{\"os\":\"" + platform + "\",\"wrapper_type\":\"desktop_wrapper\",\"wrapperVersion\":\"" + `${version}` + "\"}";
-		postMessageToRubix(msg);
+		// msg = "{\"os\":\"" + platform + "\",\"wrapper_type\":\"desktop_wrapper\",\"wrapperVersion\":\"" + `${version}` + "\"}";
+
+		// postMessageToRubix(msg);
 	})
 }
 
