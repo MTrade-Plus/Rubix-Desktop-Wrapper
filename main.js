@@ -21,7 +21,7 @@ let template = [{
 		label: 'Portfolio',
 		accelerator: 'CmdOrCtrl+P',
 		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
+			postMenuClickToRubix(item, focusedWindow);
 		}
 	}, {
 		label: 'Order List',
@@ -49,7 +49,7 @@ let template = [{
 		}
 	}, {
 		label: 'Requests',
-		accelerator: 'CmdOrCtrl+R',
+		accelerator: 'CmdOrCtrl+X',
 		click: function (item, focusedWindow) {
 			showToBeImplementedMessage(focusedWindow);
 		}
@@ -338,7 +338,7 @@ if (process.platform === 'darwin') {
 	})
 
 	// Window menu.
-	template[3].submenu.push({
+	template[6].submenu.push({
 		type: 'separator'
 	}, {
 			label: 'Bring All to Front',
@@ -365,15 +365,15 @@ function showToBeImplementedMessage(focusedWindow) {
 }
 
 function postMenuClickToRubix(item, focusedWindow) {
-	postMessageToRubix("{channel: 'Controll', message: 'Message sent from electron'}");
+	postMessageToRubix("{ channel: 3, message: 'Message sent from electron' }");
 }
 // ****************************************************************************
 // End Menu Related
 // ****************************************************************************
 
 function postMessageToRubix(msg) {
-	msg = '[' + msg + ']';
 	mainWindow.webContents.executeJavaScript("window.postMessage(" + msg + ", '*')");	
+	// mainWindow.webContents.executeJavaScript("window.postMessage([{channel: 'Controll', message: 'Message sent from electron'}], '*')");
 }
 
 function createWindow() {
@@ -386,16 +386,14 @@ function createWindow() {
 		minHeight: 768
 	})
 
-	mainWindow.loadURL(`https://rubix.mubashertrade.com/rubix-global`);
-
+	// mainWindow.loadURL(`https://rubix.mubashertrade.com/rubix-global`);
+	mainWindow.loadURL(`http://localhost:4200/desktop`);
+	
 	// Open the DevTools.
 	// mainWindow.webContents.openDevTools()
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
-		// Dereference the window object, usually you would store windows
-		// in an array if your app supports multi windows, this is the time
-		// when you should delete the corresponding element.
 		mainWindow = null
 	})
 
@@ -413,15 +411,11 @@ function createWindow() {
 			platform = 'macos'
 		}
 
-		// msg = "{\"os\":\"" + platform + "\",\"wrapper_type\":\"desktop_wrapper\",\"wrapperVersion\":\"" + `${version}` + "\"}";
-
-		// postMessageToRubix(msg);
+		msg = "{'os':'" + platform + "','wrapper_type':'desktop_wrapper','wrapperVersion':'" + "1.0.0" + "'}";
+		postMessageToRubix(msg);
 	})
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on('ready', function () {
 	createWindow();
 
