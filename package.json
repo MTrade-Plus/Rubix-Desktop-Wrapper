@@ -1,0 +1,23 @@
+{
+  "name": "MubasherTrade",
+  "version": "1.0.0",
+  "description": "MubasherTrade Desktop Application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "Mubasher",
+  "license": "Mubasher",
+  "devDependencies": {
+    "electron": "~1.6.2",
+    "electron-packager": "^8.7.2"
+  }
+}
