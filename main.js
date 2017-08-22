@@ -373,7 +373,6 @@ function postMenuClickToRubix(item, focusedWindow) {
 
 function postMessageToRubix(msg) {
 	mainWindow.webContents.executeJavaScript("window.postMessage(["+msg+"], '*')");	
-	// mainWindow.webContents.executeJavaScript("window.postMessage([{channel: 'Controll', message: 'Message sent from electron'}], '*')");
 }
 
 function createWindow() {
