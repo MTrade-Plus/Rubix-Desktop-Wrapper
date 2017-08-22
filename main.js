@@ -365,14 +365,14 @@ function showToBeImplementedMessage(focusedWindow) {
 }
 
 function postMenuClickToRubix(item, focusedWindow) {
-	postMessageToRubix("{ channel: 3, message: 'Message sent from electron' }");
+	postMessageToRubix("{channel: 'Wrapper', message: 'Message sent from electron'}");
 }
 // ****************************************************************************
 // End Menu Related
 // ****************************************************************************
 
 function postMessageToRubix(msg) {
-	mainWindow.webContents.executeJavaScript("window.postMessage(" + msg + ", '*')");	
+	mainWindow.webContents.executeJavaScript("window.postMessage(["+msg+"], '*')");	
 	// mainWindow.webContents.executeJavaScript("window.postMessage([{channel: 'Controll', message: 'Message sent from electron'}], '*')");
 }
 
