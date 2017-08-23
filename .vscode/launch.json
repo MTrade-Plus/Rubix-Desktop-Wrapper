@@ -1,5 +1,16 @@
 {
-    "name": "Debug",
+	"name": "Debug",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Electron Main",
+			"runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+			"program": "${workspaceRoot}/main.js",
+			"protocol": "legacy"
+		}
+	],
+	"version": "1.0.0",
     "type": "node",
     "request": "launch",
     "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
