@@ -3,3 +3,4 @@ release-builds-mac
 release-builds-win
 npm-debug.log
 .idea
+**/.DS_Store
