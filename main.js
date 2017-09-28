@@ -2,9 +2,14 @@ const electron = require('electron')
 const BrowserWindow = electron.BrowserWindow
 const Menu = electron.Menu
 const app = electron.app
+const ipcMain = require('electron').ipcMain;
 
 const path = require('path')
 const url = require('url')
+
+const EventType = {
+	SHOW_MENU : 'SHOW_MENU'
+};
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -372,7 +377,8 @@ function postMenuClickToRubix(item, focusedWindow) {
 // ****************************************************************************
 
 function postMessageToRubix(msg) {
-	mainWindow.webContents.executeJavaScript("window.postMessage(["+msg+"], '*')");	
+	// mainWindow.webContents.executeJavaScript("window.postMessage(["+msg+"], '*')");	
+	mainWindow.webContents.send('onWebInvoke' , {msg:'hello from main process 2222'});
 }
 
 function createWindow() {
@@ -384,7 +390,7 @@ function createWindow() {
 		minWidth: 1024,
 		minHeight: 768
 	})
-
+	mainWindow.setMenu(null)
 	mainWindow.loadURL(`https://rubix.mubashertrade.com/rubix-global/desktop`);
 	// mainWindow.loadURL(`http://localhost:4200/desktop`);
 	
@@ -411,7 +417,7 @@ function createWindow() {
 		}
 
 		msg = "{'os':'" + platform + "','wrapper_type':'desktop_wrapper','wrapperVersion':'" + "1.0.0" + "'}";
-		postMessageToRubix(msg);
+		postMessageToRubix(msg);	
 	})
 }
 
@@ -432,8 +438,8 @@ app.on('ready', function () {
 	splashWin.loadURL(modalPath)
 	splashWin.show()
 
-	const menu = Menu.buildFromTemplate(template)
-	Menu.setApplicationMenu(menu)
+	// const menu = Menu.buildFromTemplate(template)
+	// Menu.setApplicationMenu(menu)
 })
 
 // Quit when all windows are closed.
@@ -460,6 +466,21 @@ app.on('activate', function () {
 		createWindow()
 	}
 })
+
+ipcMain.on('onNativeInvoke', function(event, arg) {
+	switch(arg.eventType){
+		case EventType.SHOW_MENU:
+			const menu = Menu.buildFromTemplate(template)
+			Menu.setApplicationMenu(menu)
+			break;
+  }
+});
+
+ipcMain.on('onNativeInvokeSync', function(event, arg) {
+	//TODO:[Malinda] implement method body
+  	event.returnValue = 'temp';
+});
+
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
