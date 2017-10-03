@@ -91,7 +91,7 @@ let template = [{
 		click: function (item, focusedWindow) {
 			showToBeImplementedMessage(focusedWindow);
 		}
-	}, { 
+	}, {
 		type: 'separator'
 	}, {
 		label: 'Create Watchlist',
@@ -99,7 +99,7 @@ let template = [{
 		click: function (item, focusedWindow) {
 			showToBeImplementedMessage(focusedWindow);
 		}
-	}, { 
+	}, {
 		type: 'separator'
 	}, {
 		label: 'My Watchlist 01',
@@ -377,7 +377,7 @@ function postMenuClickToRubix(item, focusedWindow) {
 // ****************************************************************************
 
 function postMessageToRubix(msg) {
-	// mainWindow.webContents.executeJavaScript("window.postMessage(["+msg+"], '*')");	
+	// mainWindow.webContents.executeJavaScript("window.postMessage(["+msg+"], '*')");
 	mainWindow.webContents.send('onWebInvoke' , {msg:'hello from main process 2222'});
 }
 
@@ -391,9 +391,9 @@ function createWindow() {
 		minHeight: 768
 	})
 	mainWindow.setMenu(null)
-	mainWindow.loadURL(`https://rubix.mubashertrade.com/rubix-global/desktop`);
+	mainWindow.loadURL(`https://rubix.mubashertrade.com/rubix-global/secure/desktop`);
 	// mainWindow.loadURL(`http://localhost:4200/desktop`);
-	
+
 	// Open the DevTools.
 	// mainWindow.webContents.openDevTools()
 
@@ -417,7 +417,7 @@ function createWindow() {
 		}
 
 		msg = "{'os':'" + platform + "','wrapper_type':'desktop_wrapper','wrapperVersion':'" + "1.0.0" + "'}";
-		postMessageToRubix(msg);	
+		postMessageToRubix(msg);
 	})
 }
 
