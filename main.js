@@ -391,7 +391,7 @@ function createWindow() {
 		minHeight: 768
 	})
 	mainWindow.setMenu(null)
-	mainWindow.loadURL(`https://rubix.mubashertrade.com/rubix-global/secure/desktop`);
+	mainWindow.loadURL(`https://rubix.mubashertrade.com/rubix-global/desktop/secure`);
 	// mainWindow.loadURL(`http://localhost:4200/desktop`);
 
 	// Open the DevTools.

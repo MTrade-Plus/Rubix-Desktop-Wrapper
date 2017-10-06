@@ -1,6 +1,6 @@
 {
   "name": "MubasherTrade",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "MubasherTrade Desktop Application",
   "main": "main.js",
   "scripts": {
@@ -23,6 +23,6 @@
   "devDependencies": {
     "appdmg": "^0.4.5",
     "electron": "1.6.2",
-    "electron-packager": "^9.0.1"
+    "electron-packager": "^9.1.0"
   }
 }
