@@ -1,11 +1,11 @@
-const electron = require('electron')
-const BrowserWindow = electron.BrowserWindow
-const Menu = electron.Menu
-const app = electron.app
+const electron = require('electron');
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu;
+const app = electron.app;
 const ipcMain = require('electron').ipcMain;
 
-const path = require('path')
-const url = require('url')
+const path = require('path');
+const url = require('url');
 
 const EventType = {
 	SHOW_MENU : 'SHOW_MENU'
@@ -21,205 +21,188 @@ let splashWin;
 // ****************************************************************************
 
 let template = [{
-	label: 'Trading',
-	submenu: [{
-		label: 'Portfolio',
-		accelerator: 'CmdOrCtrl+P',
-		click: function (item, focusedWindow) {
-			postMenuClickToRubix(item, focusedWindow);
-		}
+    	label: 'Home',
+    	submenu: [{
+                label: 'Trading Console',
+                accelerator: 'CmdOrCtrl+T',
+                click: function (item, focusedWindow) {
+                    // postMenuClickToRubix(item, focusedWindow);
+                    showToBeImplementedMessage(focusedWindow);
+                }
+            }, {
+            label: 'Dashboard',
+            accelerator: 'CmdOrCtrl+D',
+            click: function (item, focusedWindow) {
+                // postMenuClickToRubix(item, focusedWindow);
+                showToBeImplementedMessage(focusedWindow);
+            }
+        }, {
+            label: 'Auto Trading',
+            accelerator: 'CmdOrCtrl+A',
+            click: function (item, focusedWindow) {
+                // postMenuClickToRubix(item, focusedWindow);
+                showToBeImplementedMessage(focusedWindow);
+            }
+        }, {
+            label: 'Mubasher Store',
+            accelerator: 'CmdOrCtrl+S',
+            click: function (item, focusedWindow) {
+                // postMenuClickToRubix(item, focusedWindow);
+                showToBeImplementedMessage(focusedWindow);
+            }
+		}]
 	}, {
-		label: 'Order List',
-		accelerator: 'CmdOrCtrl+O',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
+		label: 'Trading Account',
+    	submenu: [{
+			label: 'Portfolio',
+			accelerator: 'CmdOrCtrl+P',
+			click: function (item, focusedWindow) {
+				// postMenuClickToRubix(item, focusedWindow);
+                showToBeImplementedMessage(focusedWindow);
+			}
+		}, {
+			label: 'Orders',
+			accelerator: 'CmdOrCtrl+O',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}, {
+			label: 'Account Details',
+			// accelerator: 'CmdOrCtrl+A',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}, {
+			label: 'Deposit & Withdrawals',
+			accelerator: 'CmdOrCtrl+W',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}, {
+			label: 'Focus List',
+			// accelerator: 'CmdOrCtrl+T',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}]
 	}, {
-		label: 'Account Summary',
-		accelerator: 'CmdOrCtrl+A',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
+		label: 'Market',
+		submenu: [{
+			label: 'Market Overview',
+			accelerator: 'CmdOrCtrl+P',
+			click: function (item, focusedWindow) {
+				// postMenuClickToRubix(item, focusedWindow);
+                showToBeImplementedMessage(focusedWindow);
+			}
+		}, {
+			label: 'Watchlist',
+			accelerator: 'CmdOrCtrl+O',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}, {
+			label: 'Global Markets',
+			// accelerator: 'CmdOrCtrl+A',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}, {
+			label: 'News & Announcements',
+			accelerator: 'CmdOrCtrl+W',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}]
 	}, {
-		label: 'Order Search',
-		accelerator: 'CmdOrCtrl+S',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
+		label: 'Analytics',
+		submenu: [{
+			label: 'Top Stocks',
+			accelerator: 'CmdOrCtrl+P',
+			click: function (item, focusedWindow) {
+				// postMenuClickToRubix(item, focusedWindow);
+                showToBeImplementedMessage(focusedWindow);
+			}
+		}, {
+            type: 'separator'
+        }, {
+			label: 'Chart',
+			accelerator: 'CmdOrCtrl+C',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}, {
+			label: 'Stock Profile',
+			// accelerator: 'CmdOrCtrl+A',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}, {
+            type: 'separator'
+        }, {
+			label: 'Screener',
+			accelerator: 'CmdOrCtrl+W',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}, {
+			label: 'Research',
+			// accelerator: 'CmdOrCtrl+T',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}]
 	}, {
-		label: 'Account Statement',
-		// accelerator: 'CmdOrCtrl+T',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
+		label: 'Services',
+		submenu: [{
+			label: 'My Alerts',
+			accelerator: 'CmdOrCtrl+W',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}, {
+			label: 'Settings',
+			// accelerator: 'CmdOrCtrl+T',
+			click: function (item, focusedWindow) {
+				showToBeImplementedMessage(focusedWindow);
+			}
+		}]
 	}, {
-		label: 'Requests',
-		accelerator: 'CmdOrCtrl+X',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}]
-}, {
-	label: 'Watchlist',
-	submenu: [{
-		label: 'Full Market',
-		accelerator: 'CmdOrCtrl+F',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
+		label: 'Window',
+		role: 'window',
+		submenu: [{
+			label: 'Minimize',
+			accelerator: 'CmdOrCtrl+M',
+			role: 'minimize'
+		}, {
+			label: 'Close',
+			accelerator: 'CmdOrCtrl+W',
+			role: 'close'
+		}, {
+			type: 'separator'
+		}, {
+			label: 'Reopen Window',
+			accelerator: 'CmdOrCtrl+Shift+T',
+			enabled: false,
+			key: 'reopenMenuItem',
+			click: function () {
+				app.emit('activate')
+			}
+		}]
 	}, {
-		label: 'Trading Conslose',
-		accelerator: 'CmdOrCtrl+T',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		label: 'Graphical Watchlist',
-		// accelerator: 'CmdOrCtrl+A',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		label: 'Grid Watchlist',
-		// accelerator: 'CmdOrCtrl+S',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		label: 'Smart Watchlist',
-		// accelerator: 'CmdOrCtrl+T',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		type: 'separator'
-	}, {
-		label: 'Create Watchlist',
-		// accelerator: 'CmdOrCtrl+R',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		type: 'separator'
-	}, {
-		label: 'My Watchlist 01',
-		// accelerator: 'CmdOrCtrl+R',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}]
-}, {
-	label: 'Analysis',
-	submenu: [{
-		label: 'Chart',
-		accelerator: 'CmdOrCtrl+L',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		label: 'Research',
-		// accelerator: 'CmdOrCtrl+O',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		label: 'Screener',
-		// accelerator: 'CmdOrCtrl+A',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		label: 'Stock Profile',
-		// accelerator: 'CmdOrCtrl+S',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		label: 'Top Stocks',
-		// accelerator: 'CmdOrCtrl+T',
-		click: function (item, focusedWindow) {
-			postMenuClickToRubix(item, focusedWindow);
-		}
-	}]
-}, {
-	label: 'Market',
-	submenu: [{
-		label: 'Announcements',
-		// accelerator: 'CmdOrCtrl+P',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		label: 'News',
-		// accelerator: 'CmdOrCtrl+O',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		label: 'Global Markets',
-		// accelerator: 'CmdOrCtrl+A',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		label: 'Sector Summary',
-		// accelerator: 'CmdOrCtrl+S',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}, {
-		label: 'Mutual Funds',
-		// accelerator: 'CmdOrCtrl+T',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}]
-}, {
-	label: 'My Alerts',
-	submenu: [{
-		label: 'Price Alerts',
-		// accelerator: 'CmdOrCtrl+P',
-		click: function (item, focusedWindow) {
-			showToBeImplementedMessage(focusedWindow);
-		}
-	}]
-}, {
-	label: 'Window',
-	role: 'window',
-	submenu: [{
-		label: 'Minimize',
-		accelerator: 'CmdOrCtrl+M',
-		role: 'minimize'
-	}, {
-		label: 'Close',
-		accelerator: 'CmdOrCtrl+W',
-		role: 'close'
-	}, {
-		type: 'separator'
-	}, {
-		label: 'Reopen Window',
-		accelerator: 'CmdOrCtrl+Shift+T',
-		enabled: false,
-		key: 'reopenMenuItem',
-		click: function () {
-			app.emit('activate')
-		}
-	}]
-}, {
-	label: 'Help',
-	role: 'help',
-	submenu: [{
-		label: 'Learn More',
-		click: function () {
-			electron.shell.openExternal('http://electron.atom.io')
-		}
-	}]
-}]
+		label: 'Help',
+		role: 'help',
+		submenu: [{
+			label: 'Learn More',
+			click: function () {
+				electron.shell.openExternal('http://electron.atom.io')
+			}
+		}]
+	}];
 
 function addUpdateMenuItems(items, position) {
-	if (process.mas) return
+	if (process.mas) return;
 
-	const version = electron.app.getVersion()
+	const version = electron.app.getVersion();
 	let updateItems = [{
 		label: `Wrapper version ${version}`,
 		enabled: false
@@ -242,16 +225,16 @@ function addUpdateMenuItems(items, position) {
 			click: function () {
 				require('electron').autoUpdater.quitAndInstall()
 			}*/
-	}]
+	}];
 
-	items.splice.apply(items, [position, 0].concat(updateItems))
+	items.splice.apply(items, [position, 0].concat(updateItems));
 }
 
 function findReopenMenuItem() {
-	const menu = Menu.getApplicationMenu()
-	if (!menu) return
+	const menu = Menu.getApplicationMenu();
+	if (!menu) return;
 
-	let reopenMenuItem
+	let reopenMenuItem;
 	menu.items.forEach(function (item) {
 		if (item.submenu) {
 			item.submenu.items.forEach(function (item) {
@@ -260,12 +243,12 @@ function findReopenMenuItem() {
 				}
 			})
 		}
-	})
-	return reopenMenuItem
+	});
+	return reopenMenuItem;
 }
 
 if (process.platform === 'darwin') {
-	const name = electron.app.getName()
+	const name = electron.app.getName();
 	template.unshift({
 		label: name,
 		submenu: [{
@@ -340,7 +323,7 @@ if (process.platform === 'darwin') {
 				app.quit()
 			}
 		}]
-	})
+	});
 
 	// Window menu.
 	template[6].submenu.push({
@@ -348,13 +331,13 @@ if (process.platform === 'darwin') {
 	}, {
 			label: 'Bring All to Front',
 			role: 'front'
-		})
+		});
 
 	addUpdateMenuItems(template[0].submenu, 1)
 }
 
 if (process.platform === 'win32') {
-	const helpMenu = template[template.length - 1].submenu
+	const helpMenu = template[template.length - 1].submenu;
 	addUpdateMenuItems(helpMenu, 0)
 }
 
@@ -365,7 +348,7 @@ function showToBeImplementedMessage(focusedWindow) {
 		  title: 'Information',
 		  buttons: ['Ok'],
 		  message: 'This feature is not developed yet. Please wait for future releases. Thanks for your intrest shown in our app...!'
-	}
+	};
 	electron.dialog.showMessageBox(focusedWindow, options, function () {})
 }
 
@@ -389,10 +372,10 @@ function createWindow() {
 		show: false,
 		minWidth: 1024,
 		minHeight: 768
-	})
-	mainWindow.setMenu(null)
-	mainWindow.loadURL(`https://rubix.mubashertrade.com/rubix-global/desktop/secure`);
-	// mainWindow.loadURL(`http://localhost:4200/desktop`);
+	});
+	mainWindow.setMenu(null);
+	mainWindow.loadURL(`https://rubixglobal-qa.mubashertrade.com/`);
+	// mainWindow.loadURL(`http://localhost:4200`);
 
 	// Open the DevTools.
 	// mainWindow.webContents.openDevTools()
@@ -400,7 +383,7 @@ function createWindow() {
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
 		mainWindow = null
-	})
+	});
 
 	mainWindow.webContents.on('did-finish-load', () => {
 		if (splashWin) {
@@ -425,7 +408,7 @@ app.on('ready', function () {
 	createWindow();
 
 	// Create the child window
-	const modalPath = path.join('file://', __dirname, 'assets/splash/splash.html')
+	const modalPath = path.join('file://', __dirname, 'assets/splash/splash.html');
 	splashWin = new BrowserWindow({
 		width: 576,
 		height: 332,
@@ -434,13 +417,13 @@ app.on('ready', function () {
 		alwaysOnTop: true
 	});
 
-	splashWin.on('close', function () { splashWin = null })
-	splashWin.loadURL(modalPath)
+	splashWin.on('close', function () { splashWin = null });
+	splashWin.loadURL(modalPath);
 	splashWin.show()
 
 	// const menu = Menu.buildFromTemplate(template)
 	// Menu.setApplicationMenu(menu)
-})
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -450,14 +433,14 @@ app.on('window-all-closed', function () {
 		app.quit()
 	}
 
-	let reopenMenuItem = findReopenMenuItem()
+	let reopenMenuItem = findReopenMenuItem();
 	if (reopenMenuItem) reopenMenuItem.enabled = true
-})
+});
 
 app.on('browser-window-created', function () {
-	let reopenMenuItem = findReopenMenuItem()
+	let reopenMenuItem = findReopenMenuItem();
 	if (reopenMenuItem) reopenMenuItem.enabled = false
-})
+});
 
 app.on('activate', function () {
 	// On OS X it's common to re-create a window in the app when the
@@ -465,13 +448,13 @@ app.on('activate', function () {
 	if (mainWindow === null) {
 		createWindow()
 	}
-})
+});
 
 ipcMain.on('onNativeInvoke', function(event, arg) {
 	switch(arg.eventType){
 		case EventType.SHOW_MENU:
-			const menu = Menu.buildFromTemplate(template)
-			Menu.setApplicationMenu(menu)
+			const menu = Menu.buildFromTemplate(template);
+			Menu.setApplicationMenu(menu);
 			break;
   }
 });

@@ -4,3 +4,5 @@ release-builds-win
 npm-debug.log
 .idea
 **/.DS_Store
+.vscode
+

@@ -11,7 +11,7 @@ This is a minimal Electron application based on the [Quick Start Guide](http://e
 npm install
 
 # see it in action
-npm run start
+npm start
 ```
 
 

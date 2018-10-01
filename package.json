@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "package-mac": "electron-packager . --overwrite --asar=true --platform=darwin --arch=x64 --icon=assets/icons/mac/mubasher_trade.icns --prune=true --out=release-builds-mac --appBundleId=com.rubix.desktop --osxSign=true",
-    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/mubasher_trade.ico --prune=true --out=release-builds-win --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"MubasherTrade\"",
+    "package-win": "electron-packager . MubasherTrade --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/windows/mubasher_trade.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"MubasherTrade\"",
     "create-dmg": "node ./createDMG.js",
     "mac-appstore": "electron-packager . --overwrite --asar=true --platform=mas --arch=x64 --icon=assets/icons/mac/mubasher_trade.icns --prune=true --out=release-builds-mac --appBundleId=com.rubix.desktop --osxSign=true"
   },
@@ -21,8 +21,7 @@
   "author": "Mubasher",
   "license": "ISC",
   "devDependencies": {
-    "appdmg": "^0.4.5",
-    "electron": "1.6.2",
-    "electron-packager": "^9.1.0"
+    "electron": "^2.0.0",
+    "electron-packager": "^12.1.2"
   }
 }
