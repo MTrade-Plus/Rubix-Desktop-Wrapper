@@ -384,11 +384,11 @@ function createWindow() {
 		minHeight: 768
 	});
 	mainWindow.setMenu(null);
-	mainWindow.loadURL(`https://rubixglobal-qa.mubashertrade.com/`);
-	// mainWindow.loadURL(`http://localhost:4200`);
+	mainWindow.loadURL(`https://rubixglobal-qa.mubashertrade.com/desktop`);
+	 // mainWindow.loadURL(`http://localhost:4200/desktop`);
 
 	// Open the DevTools.
-	// mainWindow.webContents.openDevTools();
+	//  mainWindow.webContents.openDevTools();
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
