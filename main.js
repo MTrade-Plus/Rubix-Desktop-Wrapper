@@ -383,7 +383,7 @@ function createWindow() {
 		minWidth: 1024,
 		minHeight: 768
 	});
-	mainWindow.setMenu(null);
+	// mainWindow.setMenu(null);
 	mainWindow.loadURL(`https://rubixglobal-qa.mubashertrade.com/desktop`);
 	 // mainWindow.loadURL(`http://localhost:4200/desktop`);
 
