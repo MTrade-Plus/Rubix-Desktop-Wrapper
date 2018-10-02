@@ -447,7 +447,8 @@ app.on('window-all-closed', function () {
 	if (reopenMenuItem) reopenMenuItem.enabled = true
 });
 
-app.on('browser-window-created', function () {
+app.on('browser-window-created', function (event,window) {
+    window.setMenu(null);
 	let reopenMenuItem = findReopenMenuItem();
 	if (reopenMenuItem) reopenMenuItem.enabled = false
 });
