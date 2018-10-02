@@ -7,7 +7,7 @@
 			"name": "Electron Main",
 			"runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
 			"program": "${workspaceRoot}/main.js",
-			"protocol": "legacy"
+			"protocol": "inspector"
 		}
 	],
 	"version": "1.0.0",

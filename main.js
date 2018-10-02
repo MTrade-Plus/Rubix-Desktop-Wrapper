@@ -8,7 +8,8 @@ const path = require('path');
 const url = require('url');
 
 const EventType = {
-	SHOW_MENU : 'SHOW_MENU'
+	SHOW_MENU : 'SHOW_MENU',
+    MENU_CLICK : 'MENU_CLICK',
 };
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -20,150 +21,151 @@ let splashWin;
 // Menu Related
 // ****************************************************************************
 
-let template = [{
+let template = [
+	{
     	label: 'Home',
     	submenu: [{
                 label: 'Trading Console',
                 accelerator: 'CmdOrCtrl+T',
+				id: 'oneStopTrade',
                 click: function (item, focusedWindow) {
-                    // postMenuClickToRubix(item, focusedWindow);
-                    showToBeImplementedMessage(focusedWindow);
+                    postMenuClickToRubix(item, focusedWindow);
                 }
             }, {
-            label: 'Dashboard',
-            accelerator: 'CmdOrCtrl+D',
-            click: function (item, focusedWindow) {
-                // postMenuClickToRubix(item, focusedWindow);
-                showToBeImplementedMessage(focusedWindow);
-            }
-        }, {
-            label: 'Auto Trading',
-            accelerator: 'CmdOrCtrl+A',
-            click: function (item, focusedWindow) {
-                // postMenuClickToRubix(item, focusedWindow);
-                showToBeImplementedMessage(focusedWindow);
-            }
-        }, {
             label: 'Mubasher Store',
+            id: 'Store',
             accelerator: 'CmdOrCtrl+S',
             click: function (item, focusedWindow) {
-                // postMenuClickToRubix(item, focusedWindow);
-                showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
             }
 		}]
 	}, {
 		label: 'Trading Account',
     	submenu: [{
 			label: 'Portfolio',
+            id: 'portfolio',
 			accelerator: 'CmdOrCtrl+P',
 			click: function (item, focusedWindow) {
-				// postMenuClickToRubix(item, focusedWindow);
-                showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}, {
 			label: 'Orders',
+            id: 'orders',
 			accelerator: 'CmdOrCtrl+O',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}, {
 			label: 'Account Details',
+            id: 'accountDetails',
 			// accelerator: 'CmdOrCtrl+A',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}, {
 			label: 'Deposit & Withdrawals',
+            id: 'depositWithdraw',
 			accelerator: 'CmdOrCtrl+W',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}, {
 			label: 'Focus List',
+            id: 'focusList',
 			// accelerator: 'CmdOrCtrl+T',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}]
 	}, {
 		label: 'Market',
 		submenu: [{
 			label: 'Market Overview',
+            id: 'marketOverview',
 			accelerator: 'CmdOrCtrl+P',
 			click: function (item, focusedWindow) {
-				// postMenuClickToRubix(item, focusedWindow);
-                showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}, {
 			label: 'Watchlist',
+            id: 'watchList',
 			accelerator: 'CmdOrCtrl+O',
+			id: 'watchList',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}, {
 			label: 'Global Markets',
+            id: 'globalMarkets',
 			// accelerator: 'CmdOrCtrl+A',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}, {
 			label: 'News & Announcements',
+            id: 'newsAnn',
 			accelerator: 'CmdOrCtrl+W',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}]
 	}, {
 		label: 'Analytics',
 		submenu: [{
 			label: 'Top Stocks',
+            id: 'topStocks',
 			accelerator: 'CmdOrCtrl+P',
 			click: function (item, focusedWindow) {
-				// postMenuClickToRubix(item, focusedWindow);
-                showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}, {
             type: 'separator'
         }, {
 			label: 'Chart',
+            id: 'chart',
 			accelerator: 'CmdOrCtrl+C',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}, {
 			label: 'Stock Profile',
+            id: 'stockProfile',
 			// accelerator: 'CmdOrCtrl+A',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}, {
             type: 'separator'
         }, {
 			label: 'Screener',
+            id: 'screener',
 			accelerator: 'CmdOrCtrl+W',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}, {
 			label: 'Research',
+            id: 'research',
 			// accelerator: 'CmdOrCtrl+T',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}]
 	}, {
 		label: 'Services',
 		submenu: [{
 			label: 'My Alerts',
+            id: 'myAlerts',
 			accelerator: 'CmdOrCtrl+W',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}, {
 			label: 'Settings',
+            id: 'preferences',
 			// accelerator: 'CmdOrCtrl+T',
 			click: function (item, focusedWindow) {
-				showToBeImplementedMessage(focusedWindow);
+                postMenuClickToRubix(item, focusedWindow);
 			}
 		}]
 	}, {
@@ -179,7 +181,7 @@ let template = [{
 			role: 'close'
 		}, {
 			type: 'separator'
-		}, {
+		}/*, {
 			label: 'Reopen Window',
 			accelerator: 'CmdOrCtrl+Shift+T',
 			enabled: false,
@@ -187,17 +189,19 @@ let template = [{
 			click: function () {
 				app.emit('activate')
 			}
-		}]
+		}*/]
 	}, {
 		label: 'Help',
 		role: 'help',
 		submenu: [{
 			label: 'Learn More',
+            enabled: false,
 			click: function () {
 				electron.shell.openExternal('http://electron.atom.io')
 			}
 		}]
-	}];
+	},
+	];
 
 function addUpdateMenuItems(items, position) {
 	if (process.mas) return;
@@ -353,15 +357,21 @@ function showToBeImplementedMessage(focusedWindow) {
 }
 
 function postMenuClickToRubix(item, focusedWindow) {
-	postMessageToRubix("{channel: 'Wrapper', message: 'Message sent from electron'}");
+	postMessageToRubix(EventType.MENU_CLICK, item.id);
 }
 // ****************************************************************************
 // End Menu Related
 // ****************************************************************************
 
-function postMessageToRubix(msg) {
-	// mainWindow.webContents.executeJavaScript("window.postMessage(["+msg+"], '*')");
-	mainWindow.webContents.send('onWebInvoke' , {msg:'hello from main process 2222'});
+function postMessageToRubix(type, msg) {
+	// mainWindow.webContents.executeJavaScript("window.postMessage(["+msg+"], '*')");E
+    switch(type){
+        case EventType.MENU_CLICK:
+            mainWindow.webContents.send('onWebInvoke' , {msg:msg, type: type});
+            break;
+		default:
+			// error log
+    }
 }
 
 function createWindow() {
@@ -378,7 +388,7 @@ function createWindow() {
 	// mainWindow.loadURL(`http://localhost:4200`);
 
 	// Open the DevTools.
-	// mainWindow.webContents.openDevTools()
+	// mainWindow.webContents.openDevTools();
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
