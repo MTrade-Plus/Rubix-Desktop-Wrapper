@@ -25,7 +25,7 @@ OutputBaseFilename=MTPlus setup
 Compression=lzma
 SolidCompression=yes
 SignTool = MFS-BSC $f
-SetupIconFile=icon.ico
+SetupIconFile=mubasher_trade.ico
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
