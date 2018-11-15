@@ -384,8 +384,8 @@ function createWindow() {
 		minHeight: 768
 	});
 	// mainWindow.setMenu(null);
-	mainWindow.loadURL(`https://rubixglobal-qa.mubashertrade.com/desktop`);
-	 // mainWindow.loadURL(`http://localhost:4200/desktop`);
+	mainWindow.loadURL(`https://rubixglobal-qa.mubashertrade.com`);
+	 // mainWindow.loadURL(`http://localhost:4200`);
 
 	// Open the DevTools.
 	//  mainWindow.webContents.openDevTools();
@@ -465,7 +465,12 @@ ipcMain.on('onNativeInvoke', function(event, arg) {
 	switch(arg.eventType){
 		case EventType.SHOW_MENU:
 			const menu = Menu.buildFromTemplate(template);
-			Menu.setApplicationMenu(menu);
+			if (arg.data.show) {
+                Menu.setApplicationMenu(menu);
+			} else {
+                Menu.setApplicationMenu(null);
+			}
+
 			break;
   }
 });
