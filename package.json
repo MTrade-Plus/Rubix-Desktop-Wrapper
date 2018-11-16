@@ -1,6 +1,6 @@
 {
-  "name": "MubasherTrade",
-  "version": "0.1.0",
+  "name": "mubashertrade_desktop_wrapper",
+  "version": "0.2.0",
   "description": "MubasherTrade Desktop Application",
   "main": "main.js",
   "scripts": {
@@ -21,7 +21,8 @@
   "author": "Mubasher",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^2.0.0",
+    "appdmg": "^0.5.2",
+    "electron": "^3.0.9",
     "electron-packager": "^12.1.2"
   }
 }
