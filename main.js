@@ -462,7 +462,7 @@ app.on('activate', function () {
 });
 
 ipcMain.on('onNativeInvoke', function(event, arg) {
-	switch(arg.eventType){
+	switch(arg.eventType.configItem){
 		case EventType.SHOW_MENU:
 			const menu = Menu.buildFromTemplate(template);
 			if (arg.data.show) {
