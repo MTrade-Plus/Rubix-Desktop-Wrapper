@@ -3,7 +3,7 @@
   "icon": "assets/icons/mac/mubashertrade_global.icns",
   "background": "assets/rubix_background.png",
   "contents": [
-    { "x": 140, "y": 120, "type": "file", "path": "release-builds-mac/Mtrade Plus-darwin-x64/Mtrade Plus.app" },
+    { "x": 140, "y": 120, "type": "file", "path": "release-builds-mac/MTrade Plus-darwin-x64/Mtrade Plus.app" },
     { "x": 340, "y": 120, "type": "link", "path": "/Applications" }
   ],
   "window": { "position": {"x": 500, "y": 600}, "size": {"width":500, "height":300}}
