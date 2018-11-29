@@ -474,7 +474,7 @@ ipcMain.on('onNativeInvoke', function(event, arg) {
 			if (!dynamicMenuItemsAdded) {
 				if (arg.data.dynamicMenuItems && arg.data.dynamicMenuItems.length > 0) {
 					for (const item of  arg.data.dynamicMenuItems) {
-                        switch(item){
+                        switch(item.configItem){
                             case ConfigurableMenuItems.Store:
                                 template[0].submenu.push({
                                     label: 'Mubasher Invest',
