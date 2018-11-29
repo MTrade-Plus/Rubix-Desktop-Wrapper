@@ -12,10 +12,16 @@ const EventType = {
     MENU_CLICK : 'MENU_CLICK',
 };
 
+const ConfigurableMenuItems = {
+    Store : 'Store',
+};
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 let splashWin;
+
+let dynamicMenuItemsAdded = false;
 
 // ****************************************************************************
 // Menu Related
@@ -31,14 +37,14 @@ let template = [
                 click: function (item, focusedWindow) {
                     postMenuClickToRubix(item, focusedWindow);
                 }
-            }, {
+            }/*, {
             label: 'Mubasher Store',
             id: 'Store',
             accelerator: 'CmdOrCtrl+S',
             click: function (item, focusedWindow) {
                 postMenuClickToRubix(item, focusedWindow);
             }
-		}]
+		}*/]
 	}, {
 		label: 'Trading Account',
     	submenu: [{
@@ -462,8 +468,29 @@ app.on('activate', function () {
 });
 
 ipcMain.on('onNativeInvoke', function(event, arg) {
-	switch(arg.eventType.configItem){
+	switch(arg.eventType){
 		case EventType.SHOW_MENU:
+            if (!dynamicMenuItemsAdded) {
+                if (arg.data.dynamicMenuItems && arg.data.dynamicMenuItems.length > 0) {
+                    for (const item of  arg.data.dynamicMenuItems) {
+                        switch(item.configItem){
+                            case ConfigurableMenuItems.Store:
+                                template[0].submenu.push({
+                                    label: 'Mubasher Invest',
+                                    id: 'store',
+                                    accelerator: 'CmdOrCtrl+S',
+                                    click: function (item, focusedWindow) {
+                                        postMenuClickToRubix(item, focusedWindow);
+                                    }
+                                });
+                                break;
+                            default:
+                            // error log
+                        }
+                    }
+                    dynamicMenuItemsAdded = true;
+                }
+            }
 			const menu = Menu.buildFromTemplate(template);
 			if (arg.data.show) {
                 Menu.setApplicationMenu(menu);
