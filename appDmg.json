@@ -1,7 +1,7 @@
 {
   "title": "MTrade Plus",
   "icon": "assets/icons/mac/mubashertrade_global.icns",
-  "background": "assets/rubix_background.png",
+  "background": "assets/dmg_background/color.png",
   "contents": [
     { "x": 140, "y": 120, "type": "file", "path": "release-builds-mac/MTrade Plus-darwin-x64/Mtrade Plus.app" },
     { "x": 340, "y": 120, "type": "link", "path": "/Applications" }
