@@ -209,6 +209,85 @@ let template = [
 	},
 	];
 
+const name = electron.app.getName();
+
+const macDefaultMenuItems = {
+    label: name,
+    submenu: [{
+        label: `About ${name}`,
+        role: 'about'
+    }, {
+        type: 'separator'
+    }, {
+        label: 'Reload',
+        accelerator: 'CmdOrCtrl+R',
+        click: function (item, focusedWindow) {
+            if (focusedWindow) {
+                // on reload, start fresh and close any old
+                // open secondary windows
+                if (focusedWindow.id === 1) {
+                    BrowserWindow.getAllWindows().forEach(function (win) {
+                        if (win.id > 1) {
+                            win.close()
+                        }
+                    })
+                }
+                focusedWindow.reload()
+            }
+        }
+    }, {
+        label: 'Toggle Full Screen',
+        accelerator: (function () {
+            if (process.platform === 'darwin') {
+                return 'Ctrl+Command+F'
+            } else {
+                return 'F11'
+            }
+        })(),
+        click: function (item, focusedWindow) {
+            if (focusedWindow) {
+                focusedWindow.setFullScreen(!focusedWindow.isFullScreen())
+            }
+        }
+    }, {
+        label: 'Toggle Developer Tools',
+        accelerator: (function () {
+            if (process.platform === 'darwin') {
+                return 'Alt+Command+I'
+            } else {
+                return 'Ctrl+Shift+I'
+            }
+        })(),
+        click: function (item, focusedWindow) {
+            if (focusedWindow) {
+                focusedWindow.toggleDevTools()
+            }
+        }
+    }, {
+        type: 'separator'
+    }, {
+        label: `Hide ${name}`,
+        accelerator: 'Command+H',
+        role: 'hide'
+    }, {
+        label: 'Hide Others',
+        accelerator: 'Command+Alt+H',
+        role: 'hideothers'
+    }, {
+        label: 'Show All',
+        role: 'unhide'
+    }, {
+        type: 'separator'
+    }, {
+        label: 'Quit',
+        accelerator: 'Command+Q',
+        click: function () {
+            app.quit()
+        }
+    }]
+};
+
+
 function addUpdateMenuItems(items, position) {
 	if (process.mas) return;
 
@@ -258,82 +337,7 @@ function findReopenMenuItem() {
 }
 
 if (process.platform === 'darwin') {
-	const name = electron.app.getName();
-	template.unshift({
-		label: name,
-		submenu: [{
-			label: `About ${name}`,
-			role: 'about'
-		}, {
-			type: 'separator'
-		}, {
-			label: 'Reload',
-			accelerator: 'CmdOrCtrl+R',
-			click: function (item, focusedWindow) {
-				if (focusedWindow) {
-					// on reload, start fresh and close any old
-					// open secondary windows
-					if (focusedWindow.id === 1) {
-						BrowserWindow.getAllWindows().forEach(function (win) {
-							if (win.id > 1) {
-								win.close()
-							}
-						})
-					}
-					focusedWindow.reload()
-				}
-			}
-		}, {
-			label: 'Toggle Full Screen',
-			accelerator: (function () {
-				if (process.platform === 'darwin') {
-					return 'Ctrl+Command+F'
-				} else {
-					return 'F11'
-				}
-			})(),
-			click: function (item, focusedWindow) {
-				if (focusedWindow) {
-					focusedWindow.setFullScreen(!focusedWindow.isFullScreen())
-				}
-			}
-		}, {
-			label: 'Toggle Developer Tools',
-			accelerator: (function () {
-				if (process.platform === 'darwin') {
-					return 'Alt+Command+I'
-				} else {
-					return 'Ctrl+Shift+I'
-				}
-			})(),
-			click: function (item, focusedWindow) {
-				if (focusedWindow) {
-					focusedWindow.toggleDevTools()
-				}
-			}
-		}, {
-			type: 'separator'
-		}, {
-			label: `Hide ${name}`,
-			accelerator: 'Command+H',
-			role: 'hide'
-		}, {
-			label: 'Hide Others',
-			accelerator: 'Command+Alt+H',
-			role: 'hideothers'
-		}, {
-			label: 'Show All',
-			role: 'unhide'
-		}, {
-			type: 'separator'
-		}, {
-			label: 'Quit',
-			accelerator: 'Command+Q',
-			click: function () {
-				app.quit()
-			}
-		}]
-	});
+	template.unshift(macDefaultMenuItems);
 
 	// Window menu.
 	template[6].submenu.push({
@@ -475,14 +479,25 @@ ipcMain.on('onNativeInvoke', function(event, arg) {
                     for (const item of  arg.data.dynamicMenuItems) {
                         switch(item.configItem){
                             case ConfigurableMenuItems.Store:
-                                template[0].submenu.push({
-                                    label: 'Mubasher Invest',
-                                    id: 'store',
-                                    accelerator: 'CmdOrCtrl+S',
-                                    click: function (item, focusedWindow) {
-                                        postMenuClickToRubix(item, focusedWindow);
-                                    }
-                                });
+                            	if (process.platform === 'darwin') {
+                                    template[1].submenu.push({
+                                        label: 'Mubasher Invest',
+                                        id: 'store',
+                                        accelerator: 'CmdOrCtrl+S',
+                                        click: function (item, focusedWindow) {
+                                            postMenuClickToRubix(item, focusedWindow);
+                                        }
+                                    });
+								} else {
+                                    template[0].submenu.push({
+                                        label: 'Mubasher Invest',
+                                        id: 'store',
+                                        accelerator: 'CmdOrCtrl+S',
+                                        click: function (item, focusedWindow) {
+                                            postMenuClickToRubix(item, focusedWindow);
+                                        }
+                                    });
+								}
                                 break;
                             default:
                             // error log
@@ -495,7 +510,12 @@ ipcMain.on('onNativeInvoke', function(event, arg) {
 			if (arg.data.show) {
                 Menu.setApplicationMenu(menu);
 			} else {
-                Menu.setApplicationMenu(null);
+				if (process.platform === "darwin") {   //  Menu.setApplicationMenu(null); has no effect on mac
+                    const logoutMenu = Menu.buildFromTemplate(template.slice(0,1));
+                    Menu.setApplicationMenu(logoutMenu);
+				} else {
+                    Menu.setApplicationMenu(null);
+				}
 			}
 
 			break;
