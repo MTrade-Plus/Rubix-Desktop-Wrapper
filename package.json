@@ -1,7 +1,7 @@
 {
   "name": "mubashertrade",
   "productName": "MTrade Plus",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "MubasherTrade Desktop Application",
   "main": "main.js",
   "scripts": {
