@@ -14,6 +14,19 @@ npm install
 npm start
 ```
 
+## Prepare for windows distribution
+**Install electron-packager**
+- npm install -g electron-packager
+
+**Build windows distributable**
+- npm run package-win
+
+**Create the setup**
+- you need to download the "inno setup" and install the software http://www.jrsoftware.org
+- build your distributable
+- open desktop-wrapper\windows-setup\setup.iss
+- Check the file paths, other parameters
+- Click run to create the setup
 
 ## Prepare distribution for Mac
 

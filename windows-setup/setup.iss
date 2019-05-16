@@ -34,8 +34,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "E:\HTML5\Rubix\desktop-wrapper\release-builds\MubasherTrade-win32-ia32\MubasherTrade.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "E:\HTML5\Rubix\desktop-wrapper\release-builds\MubasherTrade-win32-ia32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\office\src\desktop-wrapper\release-builds\MubasherTrade-win32-ia32\MubasherTrade.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\office\src\desktop-wrapper\release-builds\MubasherTrade-win32-ia32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
