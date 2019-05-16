@@ -394,8 +394,8 @@ function createWindow() {
 		minHeight: 768
 	});
 	// mainWindow.setMenu(null);
-	// mainWindow.loadURL(`https://rubixglobal-uat.mubashertrade.com`);
-	mainWindow.loadURL(`http://localhost:4200/desktop`);
+	mainWindow.loadURL(`https://rubixglobal-uat.mubashertrade.com`);
+	//mainWindow.loadURL(`http://localhost:4200/desktop`);
 
 	// Open the DevTools.
 	//  mainWindow.webContents.openDevTools();
