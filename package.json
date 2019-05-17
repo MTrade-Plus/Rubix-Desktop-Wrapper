@@ -9,7 +9,8 @@
     "package-mac": "electron-packager . --overwrite --asar=true --platform=darwin --arch=x64 --icon=assets/icons/mac/mubashertrade_global.icns --prune=true --out=release-builds-mac --appBundleId=com.rubix.desktop --osxSign=true",
     "package-win": "electron-packager . MubasherTrade --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/windows/mubasher_trade.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"MubasherTrade\"",
     "create-dmg": "node ./createDMG.js",
-    "mac-appstore": "electron-packager . --overwrite --asar --platform=mas --arch=x64 --icon=assets/icons/mac/mubashertrade_global.icns --prune=true --out=release-builds-mac --appBundleId=com.rubix.desktop --osxSign"
+    "mac-appstore": "electron-packager . --overwrite --asar --platform=mas --arch=x64 --icon=assets/icons/mac/mubashertrade_global.icns --prune=true --out=release-builds-mac --appBundleId=com.rubix.desktop --app-category-type=public.app-category.finance --osxSign",
+    "build-pkg": "productbuild --component 'release-builds-mac/MTrade Plus-mas-x64/Mtrade Plus.app' /Applications ./release-builds-mac/mtrade_plus.pkg --sign '3rd Party Mac Developer Installer: Mubasher Financial Services B.S.C C (E34T28BD3E)'"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -22,7 +23,8 @@
   "author": "Mubasher",
   "license": "ISC",
   "devDependencies": {
+    "appdmg": "^0.5.2",
     "electron": "^3.1.9",
-    "electron-packager": "^12.1.2"
+    "electron-packager": "^13.1.1"
   }
 }
