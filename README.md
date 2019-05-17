@@ -27,6 +27,7 @@ npm start
 - open desktop-wrapper\windows-setup\setup.iss
 - Check the file paths, other parameters
 - Click run to create the setup
+- Sign tool configuration https://doughennig.blogspot.com/2009/11/executable-signing-with-inno-setup.html
 
 ## Prepare distribution for Mac
 
