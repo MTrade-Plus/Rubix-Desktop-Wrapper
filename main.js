@@ -402,16 +402,24 @@ function createWindow() {
 
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
-		width: mainScreen.workAreaSize.width,
+		width:  mainScreen.workAreaSize.width,
 		height: mainScreen.workAreaSize.height,
 		show: false,
+		title: 'MTrade Plus',
 		minWidth: MIN_WIDTH,	
 		minHeight: MIN_HEIGHT
 	});
 
-	// mainWindow.setMenu(null);
-	// mainWindow.loadURL(`https://rubixglobal-uat.mubashertrade.com`);
-	mainWindow.loadURL(`http://localhost:4200/desktop`);
+	mainWindow.setMenu(null);
+	// QA
+	// mainWindow.loadURL(`https://rubixglobal-qa.mubashertrade.com/desktop`);
+	// UAT
+	// mainWindow.loadURL(`https://rubixglobal-uat.mubashertrade.com/desktop`);
+	// Prod
+	mainWindow.loadURL(`https://rubixglobal.mubashertrade.com/desktop`);
+	
+	// Localhost
+	// mainWindow.loadURL(`http://localhost:4200/desktop`);
 
 	// Open the DevTools.
 	// mainWindow.webContents.openDevTools();
@@ -426,7 +434,7 @@ function createWindow() {
 			splashWin.close();
 		}
 
-		// mainWindow.maximise();
+		mainWindow.maximize();
 		mainWindow.show();
 
 		// Pass the version information to Rubix
@@ -440,11 +448,6 @@ function createWindow() {
 	});
 
 	return true;
-
-	// mainWindow.webContents.on('new-window', function(event, url) {
-	// 	event.preventDefault();
-	// 	open(url);
-	// });
 }
 
 app.on('ready', function () {
@@ -484,8 +487,8 @@ app.on('window-all-closed', function () {
 
 app.on('browser-window-created', function (event,window) {
     window.setMenu(null);
-	let reopenMenuItem = findReopenMenuItem();
-	if (reopenMenuItem) reopenMenuItem.enabled = false
+	/*let reopenMenuItem = findReopenMenuItem();
+	if (reopenMenuItem) reopenMenuItem.enabled = false*/
 });
 
 app.on('activate', function () {
