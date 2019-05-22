@@ -378,7 +378,7 @@ function postMessageToRubix(type, msg) {
 function createWindow() {
 	const screenSize = electron.screen.getPrimaryDisplay().workAreaSize;
 	if (screenSize.width < MIN_WIDTH) { // Do not validate the height as different OSs having different height params after deducting the status bars
-		electron.dialog.showErrorBox('Error', 'MTPlus Desktop version support HD resolution and above only (1280 x 768). Please adjust your resolution to HD or use our web version in your current resolution');
+		electron.dialog.showErrorBox('Resolution not supported', 'MTPlus Desktop version support HD resolution and above only (1280 x 768). Please adjust your resolution to HD or use our web version in your current resolution');
 		
 		if (splashWin) {
 			splashWin.close();
