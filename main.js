@@ -3,6 +3,8 @@ const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
 const app = electron.app;
 const ipcMain = require('electron').ipcMain;
+const MIN_WIDTH = 1280; // Minimum supported resolution - HD
+const MIN_HEIGHT = 768; // Minimum supported resolution - HD
 
 const path = require('path');
 const url = require('url');
@@ -355,17 +357,6 @@ if (process.platform === 'win32') {
 	addUpdateMenuItems(helpMenu, 0)
 }
 
-// TODO: [Amila] This method is added short term basis
-function showToBeImplementedMessage(focusedWindow) {
-	const options = {
-		type: 'info',
-		  title: 'Information',
-		  buttons: ['Ok'],
-		  message: 'This feature is not developed yet. Please wait for future releases. Thanks for your intrest shown in our app...!'
-	};
-	electron.dialog.showMessageBox(focusedWindow, options, function () {})
-}
-
 function postMenuClickToRubix(item, focusedWindow) {
 	postMessageToRubix(EventType.MENU_CLICK, item.id);
 }
@@ -385,20 +376,41 @@ function postMessageToRubix(type, msg) {
 }
 
 function createWindow() {
+	const screenSize = electron.screen.getPrimaryDisplay().workAreaSize;
+	if (screenSize.width < MIN_WIDTH) { // Do not validate the height as different OSs having different height params after deducting the status bars
+		electron.dialog.showErrorBox('Error', 'MTPlus Desktop version support HD resolution and above only (1280 x 768). Please adjust your resolution to HD or use our web version in your current resolution');
+		
+		if (splashWin) {
+			splashWin.close();
+		}
+
+		if (mainWindow) {
+			mainWindow.close();
+		}
+
+		splashWin = null;
+		mainWindow = null;
+
+		app.quit();
+		
+		return false;
+	}
+
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
 		width: 1800,
 		height: 1600,
 		show: false,
-		minWidth: 1024,
-		minHeight: 768
+		minWidth: MIN_WIDTH,	
+		minHeight: MIN_HEIGHT
 	});
+
 	// mainWindow.setMenu(null);
-	mainWindow.loadURL(`https://rubixglobal-uat.mubashertrade.com`);
-	//mainWindow.loadURL(`http://localhost:4200/desktop`);
+	// mainWindow.loadURL(`https://rubixglobal-uat.mubashertrade.com`);
+	mainWindow.loadURL(`http://localhost:4200/desktop`);
 
 	// Open the DevTools.
-	//  mainWindow.webContents.openDevTools();
+	// mainWindow.webContents.openDevTools();
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
@@ -421,11 +433,20 @@ function createWindow() {
 
 		msg = "{'os':'" + platform + "','wrapper_type':'desktop_wrapper','wrapperVersion':'" + "1.0.0" + "'}";
 		postMessageToRubix(msg);
-	})
+	});
+
+	return true;
+
+	// mainWindow.webContents.on('new-window', function(event, url) {
+	// 	event.preventDefault();
+	// 	open(url);
+	// });
 }
 
 app.on('ready', function () {
-	createWindow();
+	if (!createWindow()) {
+		return;
+	}
 
 	// Create the child window
 	const modalPath = path.join('file://', __dirname, 'assets/splash/splash.html');
