@@ -26,6 +26,7 @@ npm start
 - build your distributable
 - open desktop-wrapper\windows-setup\setup.iss
 - Check the file paths, other parameters
+- Add a sign tool. Eg: "E:\Office\src\Work Dir\desktop-wrapper\windows-setup\SignTool\signtool.exe" sign /f "E:\Office\src\Work Dir\desktop-wrapper\windows-setup\MFS-BSC.pfx" /t http://timestamp.comodoca.com/authenticode $f
 - Click run to create the setup
 - Sign tool configuration https://doughennig.blogspot.com/2009/11/executable-signing-with-inno-setup.html
 
