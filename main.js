@@ -450,28 +450,45 @@ function createWindow() {
 	return true;
 }
 
-app.on('ready', function () {
-	if (!createWindow()) {
-		return;
-	}
+const gotTheLock = app.requestSingleInstanceLock();
 
-	// Create the child window
-	const modalPath = path.join('file://', __dirname, 'assets/splash/splash.html');
-	splashWin = new BrowserWindow({
-		width: 576,
-		height: 332,
-		show: true,
-		frame: false,
-		alwaysOnTop: true
+if (!gotTheLock) {
+  	app.quit();
+} else {
+	app.on('second-instance', (event, commandLine, workingDirectory) => {
+    	// Someone tried to run a second instance, we should focus our window.
+    	if (myWindow) {
+      		if (myWindow.isMinimized()) {
+				myWindow.restore();
+			}
+      		myWindow.focus();
+    	}
 	});
 
-	splashWin.on('close', function () { splashWin = null });
-	splashWin.loadURL(modalPath);
-	splashWin.show()
+  // Create myWindow, load the rest of the app, etc...
+	app.on('ready', function () {
+		if (!createWindow()) {
+			return;
+		}
+
+		// Create the child window
+		const modalPath = path.join('file://', __dirname, 'assets/splash/splash.html');
+		splashWin = new BrowserWindow({
+			width: 576,
+			height: 332,
+			show: true,
+			frame: false,
+			alwaysOnTop: true
+		});
+
+		splashWin.on('close', function () { splashWin = null });
+		splashWin.loadURL(modalPath);
+		splashWin.show()
 
 	// const menu = Menu.buildFromTemplate(template)
 	// Menu.setApplicationMenu(menu)
-});
+	});
+}
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
