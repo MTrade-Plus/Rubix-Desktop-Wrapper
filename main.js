@@ -25,6 +25,9 @@ let splashWin;
 
 let dynamicMenuItemsAdded = false;
 
+let isWindowMaximised = false;
+let isWLMaximisedEvent;
+
 // ****************************************************************************
 // Menu Related
 // ****************************************************************************
@@ -290,6 +293,11 @@ const macDefaultMenuItems = {
 };
 
 
+ipcMain.on('maximised', function(event, arg) {
+	isWindowMaximised = arg;
+	isWLMaximisedEvent = event;
+});
+
 function addUpdateMenuItems(items, position) {
 	if (process.mas) return;
 
@@ -416,17 +424,38 @@ function createWindow() {
 	// UAT
 	// mainWindow.loadURL(`https://rubixglobal-uat.mubashertrade.com/desktop`);
 	// Prod
-	mainWindow.loadURL(`https://rubixglobal.mubashertrade.com/desktop`);
+	// mainWindow.loadURL(`https://rubixglobal.mubashertrade.com/desktop`);
+	// Nightly
+	mainWindow.loadURL(`https://rubixglobal-nightly.mubashertrade.com/desktop`);
 	
 	// Localhost
 	// mainWindow.loadURL(`http://localhost:4200/desktop`);
 
 	// Open the DevTools.
-	// mainWindow.webContents.openDevTools();
+	mainWindow.webContents.openDevTools();
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
 		mainWindow = null
+	});
+
+	mainWindow.on('close', function(event) {
+		if (isWindowMaximised) {
+			event.preventDefault();
+			isWLMaximisedEvent.sender.send('close-popup', true);
+			isWindowMaximised = false;
+		} else {
+			let choice = electron.dialog.showMessageBox(
+				mainWindow,
+				{
+					type: 'question',
+					buttons: ['Yes', 'No'],
+					title: 'MubasherTrade',
+					message: 'Do you want to close the application?'
+				}
+			);
+			if (choice === 1) event.preventDefault();
+		}	
 	});
 
 	mainWindow.webContents.on('did-finish-load', () => {
