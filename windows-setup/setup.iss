@@ -26,6 +26,7 @@ Compression=lzma
 SolidCompression=yes
 SignTool = MFSSignTool
 SetupIconFile=mubasher_trade.ico
+DisableDirPage=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -34,8 +35,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "E:\Office\src\Work Dir\desktop-wrapper\release-builds\MubasherTrade-win32-ia32\MubasherTrade.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "E:\Office\src\Work Dir\desktop-wrapper\release-builds\MubasherTrade-win32-ia32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "D:\Mubasher Projects\desktop-wrapper\release-builds\MubasherTrade-win32-ia32\MubasherTrade.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Mubasher Projects\desktop-wrapper\release-builds\MubasherTrade-win32-ia32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
