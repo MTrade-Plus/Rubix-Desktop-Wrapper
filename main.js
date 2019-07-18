@@ -472,7 +472,12 @@ function createWindow() {
 			platform = 'macos'
 		}
 
-		msg = "{'os':'" + platform + "','wrapper_type':'desktop_wrapper','wrapperVersion':'" + "1.0.0" + "'}";
+		let name  = app.getName();
+		let version = app.getVersion();
+		let windowTitle = name + " " + version;
+		mainWindow.setTitle(windowTitle);
+
+		msg = "{'os':'" + platform + "','wrapper_type':'desktop_wrapper','wrapperVersion':'" + version + "'}";
 		postMessageToRubix(msg);
 	});
 
