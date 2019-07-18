@@ -1,7 +1,7 @@
 {
   "name": "mubashertrade",
   "productName": "MTrade Plus",
-  "version": "1.1.0",
+  "version": "1.3.0",
   "description": "MubasherTrade Desktop Application",
   "main": "main.js",
   "scripts": {
@@ -26,5 +26,8 @@
     "appdmg": "^0.5.2",
     "electron": "^3.1.9",
     "electron-packager": "^13.1.1"
+  },
+  "dependencies": {
+    "electron-simple-updater": "^1.5.0"
   }
 }

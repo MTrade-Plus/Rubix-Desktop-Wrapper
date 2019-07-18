@@ -6,6 +6,12 @@ const ipcMain = require('electron').ipcMain;
 const MIN_WIDTH = 1280; // Minimum supported resolution - HD
 const MIN_HEIGHT = 768; // Minimum supported resolution - HD
 
+// QA 	https://rubixglobal-qa.mubashertrade.com/desktop
+// UAT	https://rubixglobal-uat.mubashertrade.com/desktop
+// PROD	https://rubixglobal.mubashertrade.com/desktop
+const APP_URL = 'https://rubixglobal-uat.mubashertrade.com/desktop';
+const AUTO_UPDATE_URL = 'https://wrappers-qa.mubashertrade.com/auto-update/mfs/updates.json';
+
 const path = require('path');
 const url = require('url');
 
@@ -419,20 +425,10 @@ function createWindow() {
 	});
 
 	mainWindow.setMenu(null);
-	// QA
-	// mainWindow.loadURL(`https://rubixglobal-qa.mubashertrade.com/desktop`);
-	// UAT
-	// mainWindow.loadURL(`https://rubixglobal-uat.mubashertrade.com/desktop`);
-	// Prod
-	// mainWindow.loadURL(`https://rubixglobal.mubashertrade.com/desktop`);
-	// Nightly
-	mainWindow.loadURL(`https://rubixglobal-nightly.mubashertrade.com/desktop`);
-	
-	// Localhost
-	// mainWindow.loadURL(`http://localhost:4200/desktop`);
+	mainWindow.loadURL(APP_URL);
 
 	// Open the DevTools.
-	mainWindow.webContents.openDevTools();
+	// mainWindow.webContents.openDevTools();
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
@@ -465,6 +461,10 @@ function createWindow() {
 
 		mainWindow.maximize();
 		mainWindow.show();
+
+		// Check for auto updates
+		const updater = require('electron-simple-updater');
+		updater.init(AUTO_UPDATE_URL);
 
 		// Pass the version information to Rubix
 		let platform = 'windows';
