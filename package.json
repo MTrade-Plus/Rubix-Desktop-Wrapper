@@ -1,7 +1,7 @@
 {
   "name": "mubashertrade",
   "productName": "MubasherTrade Plus",
-  "version": "1.3.12",
+  "version": "1.3.13",
   "main": "main.js",
   "description": "MubasherTrade Desktop Application",
   "author": "Mubasher",
@@ -51,6 +51,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://MTrade-Plus:rubixdesktopwrapper2019@github.com/MTrade-Plus/Rubix-Desktop-Wrapper.git"
+    "url": "https://github.com/MTrade-Plus/Rubix-Desktop-Wrapper.git"
   }
 }
