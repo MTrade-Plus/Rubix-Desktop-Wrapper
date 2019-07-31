@@ -585,6 +585,8 @@ if (!gotTheLock) {
 		splashWin.loadURL(modalPath);
 		splashWin.show()
 
+		autoUpdater.checkForUpdatesAndNotify();
+
 	// const menu = Menu.buildFromTemplate(template)
 	// Menu.setApplicationMenu(menu)
 	});
