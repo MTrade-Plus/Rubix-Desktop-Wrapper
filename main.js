@@ -1,4 +1,5 @@
 const electron = require('electron');
+const {autoUpdater} = require("electron-updater");
 const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
 const app = electron.app;
@@ -428,7 +429,7 @@ function createWindow() {
 	mainWindow.loadURL(APP_URL);
 
 	// Open the DevTools.
-	// mainWindow.webContents.openDevTools();
+	mainWindow.webContents.openDevTools();
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
@@ -462,9 +463,74 @@ function createWindow() {
 		mainWindow.maximize();
 		mainWindow.show();
 
-		// Check for auto updates
-		const updater = require('electron-simple-updater');
-		updater.init(AUTO_UPDATE_URL);
+		// app.isPackaged = true;
+		// // Check for auto updates
+		// const updater = require('electron-simple-updater');
+		// updater.init({
+		// 	url: AUTO_UPDATE_URL,
+		// 	disabled: false,
+		// });
+
+		// // updater.checkForUpdates();
+		// // updater.downloadUpdate();
+
+		// updater.on('update-available', meta => {
+		// 	console.log('[updater] update avaiable', meta.version)
+		// 	updater.downloadUpdate()
+		// })
+		// updater.on('update-not-available', () => {
+		// 	console.log('there is no available update')
+		// });
+
+		// updater.on('update-downloading', () => {
+		// 	console.log('downloading updates....');
+		// })
+		// updater.on('update-downloaded', () => {
+		// 	if (window.confirm('Restart and install updates?')) {
+		// 		updater.quitAndInstall()
+		// 	}
+		// });
+
+		// updater.on('error', err => {
+		// 	console.log(err)
+		// });
+
+		// console.log(app.getName());
+
+		autoUpdater.on('checking-for-update', () => {
+			console.log('Checking for update...');
+		})
+		autoUpdater.on('update-available', (info) => {
+			console.log('Update available.');
+			let choice = electron.dialog.showMessageBox(
+				mainWindow,
+				{
+					type: 'question',
+					buttons: ['Yes', 'No'],
+					title: 'MubasherTrade',
+					message: 'New update available do you want to install it?'
+				}
+			);
+			if (choice === 1) event.preventDefault();
+			
+		})
+		autoUpdater.on('update-not-available', (info) => {
+			console.log('Update not available.');
+		})
+		autoUpdater.on('error', (err) => {
+			console.log('Error in auto-updater. ' + err);
+		})
+		autoUpdater.on('download-progress', (progressObj) => {
+			let log_message = "Download speed: " + progressObj.bytesPerSecond;
+			log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+			log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+			console.log(log_message);
+		})
+
+		autoUpdater.on('update-downloaded', (info) => {
+			console.log('Update downloaded and installing...');
+			autoUpdater.quitAndInstall();  
+		})
 
 		// Pass the version information to Rubix
 		let platform = 'windows';
