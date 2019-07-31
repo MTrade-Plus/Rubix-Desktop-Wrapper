@@ -502,18 +502,24 @@ function createWindow() {
 		})
 		autoUpdater.on('update-available', (info) => {
 			console.log('Update available.');
+		})
+
+		autoUpdater.on('update-downloaded', (info) => {
+			console.log('Update downloaded and installing...');
 			let choice = electron.dialog.showMessageBox(
 				mainWindow,
 				{
 					type: 'question',
 					buttons: ['Yes', 'No'],
-					title: 'MubasherTrade',
-					message: 'New update available do you want to install it?'
+					title: 'Software Update',
+					message: 'New update available. do you want to install it?'
 				}
 			);
-			if (choice === 1) event.preventDefault();
-			
+			if (choice === 0) {
+				autoUpdater.quitAndInstall();  
+			}
 		})
+
 		autoUpdater.on('update-not-available', (info) => {
 			console.log('Update not available.');
 		})
@@ -525,11 +531,6 @@ function createWindow() {
 			log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
 			log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
 			console.log(log_message);
-		})
-
-		autoUpdater.on('update-downloaded', (info) => {
-			console.log('Update downloaded and installing...');
-			autoUpdater.quitAndInstall();  
 		})
 
 		// Pass the version information to Rubix
