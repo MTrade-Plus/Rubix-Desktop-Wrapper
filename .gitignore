@@ -7,3 +7,4 @@ npm-debug.log
 .vscode
 release-builds
 windows-setup
+dist
