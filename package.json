@@ -8,7 +8,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "Rubix-Desktop-Wrapper",
+        "owner": "MTrade-Plus",
         "repo": "Rubix-Desktop-Wrapper"
       }
     ],
