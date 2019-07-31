@@ -1,7 +1,7 @@
 {
   "name": "mubashertrade",
   "productName": "MubasherTrade Plus",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "main": "main.js",
   "description": "MubasherTrade Desktop Application",
   "author": "Mubasher",
